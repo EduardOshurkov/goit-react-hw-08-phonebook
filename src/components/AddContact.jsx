@@ -1,46 +1,13 @@
-import React from "react";
-import shortid from "shortid";
+import React { Component } from "react";
 
-
-
-class Phonebook extends React.Component {
+class AddContact extends Component {
     state = {
-        name: "",
-        number: "",
-    };
-
-    nameInputId = shortid.generate();
-    numberInputId = shortid.generate();
     
-    handleNameChange = event => {
-        this.setState({
-        name: event.currentTarget.value,
-        })
-    };
-  
-    handleTelephoneChange = event => {
-        this.setState({
-        number: event.currentTarget.value,
-        })
-    };
-
-    handleSubmit = event => {
-        event.preventDefault();
-        this.props.onSubmit(this.state)
-        this.reset();
-    };
-    
-    reset = () => {
-        this.setState({
-            name: " ",
-            number: " ",
-        })
-    };
+    }
 
     render() {
-        
         return (
-            <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
                 <label htmlFor={this.nameInputId}>
                     Contact
                     <input
@@ -66,10 +33,9 @@ class Phonebook extends React.Component {
                     />
                 </label>
                 <button type="submit">Add contact</button>
-            </form>
-        );
-    };
+            </form>  
+        )
+    }
 }
 
-
-export default Phonebook;
+export default AddContact;
