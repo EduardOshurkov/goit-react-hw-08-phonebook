@@ -26,14 +26,14 @@ class Phonebook extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.onSubmit(this.state)
+        this.props.onSubmit(this.state);
         this.reset();
     };
     
     reset = () => {
         this.setState({
-            name: " ",
-            number: " ",
+            name: "",
+            number: "",
         })
     };
 
