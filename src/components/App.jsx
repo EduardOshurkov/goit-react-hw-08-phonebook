@@ -1,8 +1,9 @@
 import React from "react";
 import shortid from "shortid";
-import Phonebook from "./Phonebook/Phonebook";
-import PhonebookList from "./Phonebook/PhonebookList";
-import Filter from "./Phonebook/Filter";
+import PhonebookForm from "./PhonebookForm/PhonebookForm";
+import PhonebookList from "./PhonebookList/PhonebookList";
+import Filter from "./Filter/Filter";
+import styled from '@emotion/styled';
 
 
 export class App extends React.Component {
@@ -20,20 +21,23 @@ export class App extends React.Component {
       id: shortid.generate(),
       ...data
     }
-    this.setState(prevState => {
-      return {contacts: [...prevState.contacts, addContact]}
-    })
 
-    const isFindCopyContact = this.state.contacts.find(
+     const isFindCopyContact = this.state.contacts.find(
       el => el.name.toLocaleLowerCase() === data.name.toLocaleLowerCase()
     );
 
     if (isFindCopyContact) {
-      return alert(`${data.name} is in your Contacts`);
+      return alert(`${data.name} is already in your contacts`);
     };
+
+    this.setState(prevState => {
+      return {contacts: [...prevState.contacts, addContact]}
+    })
+
+  
   }
 
-  listToComplited = () => {
+  filterContact = () => {
     const { contacts, filter } = this.state
 
     if (filter) {
@@ -61,14 +65,27 @@ changeFilter = e => {
 
     
     return (
-      <div>
-        <Phonebook onSubmit={this.formSubmitHandler} />
+      <Container>
+        <TitlePhonebook>Phonebook</TitlePhonebook>
+        <PhonebookForm onSubmit={this.formSubmitHandler} />
 
+        <TitlePhonebook>Contacts</TitlePhonebook>
         <Filter value={filter} onChange={this.changeFilter}/>
 
-        <PhonebookList listToComplited={this.listToComplited()} onDeleteContact={this.deleteContact} />
+        <PhonebookList listToComplited={this.filterContact()} DeleteContact={this.deleteContact} />
         
-        </div>
+        </Container>
     )
   }
 }
+
+
+const Container = styled.div`
+    text-align: center;
+    padding: 40px;
+`;
+
+const TitlePhonebook = styled.h2`
+font-family: Kdam Thmor Pro;
+font-size: 24px;
+`
