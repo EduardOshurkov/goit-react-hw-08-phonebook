@@ -1,4 +1,4 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import shortid from "shortid";
 import PhonebookForm from "./PhonebookForm/PhonebookForm";
 import PhonebookList from "./PhonebookList/PhonebookList";
@@ -6,39 +6,31 @@ import Filter from "./Filter/Filter";
 import styled from '@emotion/styled';
 
 
-export class App extends React.Component {
-  state = {
-    contacts: [{ id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },],
-    filter: '',
-  };
-
+export function App() {
+  const [contacts, setContacts] = useState([{ id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },]);
   
-  formSubmitHandler = data => {
-    const addContact = {
-      id: shortid.generate(),
-      ...data
-    }
+  const [filter, setFilter] = useState('');
+  
+  const formSubmitHandler = (name, number) => {
+    const addContact = {id: shortid.generate(), name, number}
 
-     const isFindCopyContact = this.state.contacts.find(
-      el => el.name.toLocaleLowerCase() === data.name.toLocaleLowerCase()
+     const isFindCopyContact = contacts.find(
+      el => el.name.toLocaleLowerCase() === name.toLocaleLowerCase()
     );
 
     if (isFindCopyContact) {
-      return alert(`${data.name} is already in your contacts`);
+      return alert(`${name} is already in your contacts`);
     };
 
-    this.setState(prevState => {
-      return {contacts: [...prevState.contacts, addContact]}
-    })
+    setContacts([...contacts, addContact])
 
   
   }
 
-  filterContact = () => {
-    const { contacts, filter } = this.state
+  const filterContact = () => {
 
     if (filter) {
       const subString = filter.toLocaleUpperCase();
@@ -49,49 +41,34 @@ export class App extends React.Component {
     }
   }
   
-changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
+const changeFilter = e => {
+    setFilter(e.currentTarget.value);
   };
   
 
-  deleteContact = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
+  const deleteContact = contactId => {
+    setContacts(contacts.filter(contact => contact.id !== contactId))
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
+  useEffect(() => {
+ if (!contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
-  }
-
-  componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    };
-  }
-
-  render() {
-    const { filter } = this.state;
-
+  })
     
     return (
       <Container>
         <TitlePhonebook>Phonebook</TitlePhonebook>
-        <PhonebookForm onSubmit={this.formSubmitHandler} />
+        <PhonebookForm onSubmit={formSubmitHandler} />
 
         <TitlePhonebook>Contacts</TitlePhonebook>
-        <Filter value={filter} onChange={this.changeFilter}/>
+        <Filter value={filter} onChange={changeFilter}/>
 
-        <PhonebookList listToComplited={this.filterContact()} DeleteContact={this.deleteContact} />
+        <PhonebookList listToComplited={filterContact()} DeleteContact={deleteContact} />
         
         </Container>
     )
-  }
+  
 }
 
 
