@@ -1,17 +1,14 @@
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import shortid from "shortid";
 import PhonebookForm from "./PhonebookForm/PhonebookForm";
 import PhonebookList from "./PhonebookList/PhonebookList";
 import Filter from "./Filter/Filter";
 import styled from '@emotion/styled';
+import { useLocaleStorage } from "hooks/hooks";
 
 
 export function App() {
-  const [contacts, setContacts] = useState([{ id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },]);
-  
+  const [contacts, setContacts] = useLocaleStorage('contacts', []);
   const [filter, setFilter] = useState('');
   
   const formSubmitHandler = (name, number) => {
@@ -50,11 +47,10 @@ const changeFilter = e => {
     setContacts(contacts.filter(contact => contact.id !== contactId))
   };
 
-  useEffect(() => {
- if (!contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  })
+  // useEffect(() => {
+  //   window.localStorage.setItem('contacts', JSON.stringify(contacts))
+    
+  // }, [contacts])
     
     return (
       <Container>
