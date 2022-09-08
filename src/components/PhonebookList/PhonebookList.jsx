@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { Button, InfoContact, ContactList } from "./PhonebookList.styled";
 
-const PhonebookList = ({ listToComplited, DeleteContact }) => {
+const PhonebookList = ({ contacts, DeleteContact }) => {
+    console.log(contacts);
     return (
         <div>
         <ContactList>
-                {listToComplited.map(({id, name, number}) => (
+                {contacts.map(({id, name, number}) => (
                     <li key={id}>
             <InfoContact>{name}: </InfoContact>
             <InfoContact>{number}</InfoContact>
@@ -19,7 +20,7 @@ const PhonebookList = ({ listToComplited, DeleteContact }) => {
 
 export default PhonebookList;
 
-PhonebookList.propTypes = {
-    listToComplited: PropTypes.array.isRequired,
-    DeleteContact: PropTypes.func.isRequired,
-}
+// PhonebookList.propTypes = {
+//     listToComplited: PropTypes.array.isRequired,
+//     DeleteContact: PropTypes.func.isRequired,
+// }

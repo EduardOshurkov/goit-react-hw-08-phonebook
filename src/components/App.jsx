@@ -1,66 +1,99 @@
-import {useState} from "react";
-import shortid from "shortid";
-import PhonebookForm from "./PhonebookForm/PhonebookForm";
+
+
+import Phonebook from "./PhonebookForm/PhonebookForm";
 import PhonebookList from "./PhonebookList/PhonebookList";
 import Filter from "./Filter/Filter";
 import styled from '@emotion/styled';
-import { useLocaleStorage } from "hooks/hooks";
+// import { useLocaleStorage } from "hooks/hooks";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addContacts, removeContacts, setFilter } from "Redux/actions";
 
 
 export function App() {
-  const [contacts, setContacts] = useLocaleStorage('contacts', []);
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(store => store.items);
   
-  const formSubmitHandler = (name, number) => {
-    const addContact = {id: shortid.generate(), name, number}
+  const filter = useSelector(store => store.filter);
 
-     const isFindCopyContact = contacts.find(
-      el => el.name.toLocaleLowerCase() === name.toLocaleLowerCase()
-    );
-
-    if (isFindCopyContact) {
-      return alert(`${name} is already in your contacts`);
-    };
-
-    setContacts([...contacts, addContact])
-
-  
-  }
-
-  const filterContact = () => {
-
-    if (filter) {
+  const getFilter = ({ items, filter }) => {
+   if (filter) {
       const subString = filter.toLocaleUpperCase();
       const key = isNaN(+filter.charAt(0)) ? 'name' : 'number'
-      return contacts.filter(el => el[key].toLocaleUpperCase().includes(subString));
+      return items.filter(el => el[key].toLocaleUpperCase().includes(subString));
     } else {
-      return contacts;
+      return items;
     }
   }
   
-const changeFilter = e => {
-    setFilter(e.currentTarget.value);
+
+  const dispatch = useDispatch();
+
+  const onAddContacts = (payload) => {
+    const action = addContacts(payload)
+    dispatch (action);
+
   };
+
+  const onRemoveContacts = (payload) => {
+    dispatch(removeContacts(payload));
+  }
+
+  const onSetFilter = ({target}) => {
+    console.log(target);
+    dispatch(setFilter(target.value))
+  }
+
+
+//   const [contacts, setContacts] = useLocaleStorage('contacts', []);
+//   const [filter, setFilter] = useState('');
+  
+//   const formSubmitHandler = (name, number) => {
+//     const addContact = {id: shortid.generate(), name, number}
+
+//      const isFindCopyContact = contacts.find(
+//       el => el.name.toLocaleLowerCase() === name.toLocaleLowerCase()
+//     );
+
+//     if (isFindCopyContact) {
+//       return alert(`${name} is already in your contacts`);
+//     };
+
+//     setContacts([...contacts, addContact])
+
+  
+//   }
+
+//   const filterContact = () => {
+
+//     if (filter) {
+//       const subString = filter.toLocaleUpperCase();
+//       const key = isNaN(+filter.charAt(0)) ? 'name' : 'number'
+//       return contacts.filter(el => el[key].toLocaleUpperCase().includes(subString));
+//     } else {
+//       return contacts;
+//     }
+//   }
+  
+// const changeFilter = e => {
+//     setFilter(e.currentTarget.value);
+//   };
   
 
-  const deleteContact = contactId => {
-    setContacts(contacts.filter(contact => contact.id !== contactId))
-  };
+//   const deleteContact = contactId => {
+//     setContacts(contacts.filter(contact => contact.id !== contactId))
+//   };
 
-  // useEffect(() => {
-  //   window.localStorage.setItem('contacts', JSON.stringify(contacts))
-    
-  // }, [contacts])
+
     
     return (
       <Container>
         <TitlePhonebook>Phonebook</TitlePhonebook>
-        <PhonebookForm onSubmit={formSubmitHandler} />
+        <Phonebook onSubmit={onAddContacts} />
 
         <TitlePhonebook>Contacts</TitlePhonebook>
-        <Filter value={filter} onChange={changeFilter}/>
+        <Filter onChange={onSetFilter} value={filter} />
 
-        <PhonebookList listToComplited={filterContact()} DeleteContact={deleteContact} />
+        <PhonebookList contacts={contacts} DeleteContact={onRemoveContacts}/>
         
         </Container>
     )
