@@ -15,15 +15,15 @@ export function App() {
   
   const filter = useSelector(store => store.filter);
 
-  const getFilter = ({ items, filter }) => {
-   if (filter) {
-      const subString = filter.toLocaleUpperCase();
-      const key = isNaN(+filter.charAt(0)) ? 'name' : 'number'
-      return items.filter(el => el[key].toLocaleUpperCase().includes(subString));
-    } else {
-      return items;
-    }
-  }
+  // const getFilter = ({ items, filter }) => {
+  //  if (filter) {
+  //     const subString = filter.toLocaleUpperCase();
+  //     const key = isNaN(+filter.charAt(0)) ? 'name' : 'number'
+  //     return items.filter(el => el[key].toLocaleUpperCase().includes(subString));
+  //   } else {
+  //     return items;
+  //   }
+  // }
   
 
   const dispatch = useDispatch();
@@ -42,48 +42,6 @@ export function App() {
     console.log(target);
     dispatch(setFilter(target.value))
   }
-
-
-//   const [contacts, setContacts] = useLocaleStorage('contacts', []);
-//   const [filter, setFilter] = useState('');
-  
-//   const formSubmitHandler = (name, number) => {
-//     const addContact = {id: shortid.generate(), name, number}
-
-//      const isFindCopyContact = contacts.find(
-//       el => el.name.toLocaleLowerCase() === name.toLocaleLowerCase()
-//     );
-
-//     if (isFindCopyContact) {
-//       return alert(`${name} is already in your contacts`);
-//     };
-
-//     setContacts([...contacts, addContact])
-
-  
-//   }
-
-//   const filterContact = () => {
-
-//     if (filter) {
-//       const subString = filter.toLocaleUpperCase();
-//       const key = isNaN(+filter.charAt(0)) ? 'name' : 'number'
-//       return contacts.filter(el => el[key].toLocaleUpperCase().includes(subString));
-//     } else {
-//       return contacts;
-//     }
-//   }
-  
-// const changeFilter = e => {
-//     setFilter(e.currentTarget.value);
-//   };
-  
-
-//   const deleteContact = contactId => {
-//     setContacts(contacts.filter(contact => contact.id !== contactId))
-//   };
-
-
     
     return (
       <Container>
