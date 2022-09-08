@@ -7,13 +7,14 @@ import styled from '@emotion/styled';
 // import { useLocaleStorage } from "hooks/hooks";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addContacts, removeContacts, setFilter } from "Redux/actions";
+import { setFilter } from "Redux/filterSlice";
+import { addContact, removeContact } from "Redux/contactSlice";
 
 
 export function App() {
-  const contacts = useSelector(store => store.items);
+  const contacts = useSelector(store => store.contacts);
   
-  const filter = useSelector(store => store.filter);
+  const filter = useSelector(store => store.contacts);
 
   // const getFilter = ({ items, filter }) => {
   //  if (filter) {
@@ -29,13 +30,13 @@ export function App() {
   const dispatch = useDispatch();
 
   const onAddContacts = (payload) => {
-    const action = addContacts(payload)
+    const action = addContact(payload)
     dispatch (action);
 
   };
 
   const onRemoveContacts = (payload) => {
-    dispatch(removeContacts(payload));
+    dispatch(removeContact(payload));
   }
 
   const onSetFilter = ({target}) => {
