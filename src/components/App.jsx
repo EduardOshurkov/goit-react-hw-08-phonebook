@@ -9,11 +9,12 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setFilter } from "Redux/filterSlice";
 import { addContact, removeContact } from "Redux/contactSlice";
+import { getVisibleFilter } from "Redux/selectors";
+import { store } from "Redux/store";
 
 
 export function App() {
   const contacts = useSelector(store => store.contacts);
-  
   const filter = useSelector(store => store.contacts);
 
   // const getFilter = ({ items, filter }) => {
@@ -40,7 +41,6 @@ export function App() {
   }
 
   const onSetFilter = ({target}) => {
-    console.log(target);
     dispatch(setFilter(target.value))
   }
     
