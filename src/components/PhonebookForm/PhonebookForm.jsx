@@ -4,47 +4,46 @@ import { PhonebookFormLabel, PhonebookFormInput, ButtonForm } from "./PhonebookF
 
 
 
-export default function Phonebook({onSubmit}) {
-    const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+export default function Phonebook({ onSubmit }) {
+    const initialState = {
+        name: '',
+        number: '',
+    };
+
+    const [state, setState] = useState({ ...initialState });
+    const { name, number } = state;
    
 
     const nameInputId = shortid.generate();
     const numberInputId = shortid.generate();
     
-    const handleNameChange = event => {
-        setName(event.currentTarget.value)
-    };
-  
-    const handleTelephoneChange = event => {
-        setNumber(event.currentTarget.value)
+    const handleChange = ({target}) => {
+        const { name, value } = target;
+        setState(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
 
-
-    
     const handleSubmit = event => {
         event.preventDefault();
-        onSubmit(name, number);
-        resetForm();
+        onSubmit({ ...state });
+        setState({ ...initialState });
     };
     
-   const resetForm = () => {
-       setName('');
-       setNumber('');
-  };
-
-
+    
         return (
             <form onSubmit={handleSubmit}>
                 <PhonebookFormLabel htmlFor={nameInputId}>
                     Contact
                     <PhonebookFormInput
                         type="text"
+                        name="name"
                         value={name}
                         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                         required
-                        onChange={handleNameChange}
+                        onChange={handleChange}
                         id={nameInputId}
                     />
                 </PhonebookFormLabel>
@@ -52,11 +51,12 @@ export default function Phonebook({onSubmit}) {
                     Telephone
                     <PhonebookFormInput
                         type="tel"
+                        name="number"
                         value={number}
                         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                         required
-                        onChange={handleTelephoneChange}
+                        onChange={handleChange}
                         id={numberInputId}
                     />
                 </PhonebookFormLabel>

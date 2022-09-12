@@ -1,9 +1,8 @@
 import React from "react";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Button, InfoContact, ContactList } from "./PhonebookList.styled";
 
 const PhonebookList = ({ contacts, DeleteContact }) => {
-    console.log(contacts);
     return (
         <div>
         <ContactList>
@@ -20,7 +19,7 @@ const PhonebookList = ({ contacts, DeleteContact }) => {
 
 export default PhonebookList;
 
-// PhonebookList.propTypes = {
-//     listToComplited: PropTypes.array.isRequired,
-//     DeleteContact: PropTypes.func.isRequired,
-// }
+PhonebookList.propTypes = {
+    contacts: PropTypes.array.isRequired,
+    DeleteContact: PropTypes.func.isRequired,
+}
