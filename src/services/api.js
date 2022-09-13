@@ -10,12 +10,12 @@ export const getContacts = async () => {
     return data
 };
 
-export const addContacts = async (data) => {
-    const { data: result } = await instance.post("/", data);
-    return result;
+export const addContacts = async options => {
+    const { data} = await instance.post("/", options);
+    return data;
 }
 
-export const removeBook = async (id) => {
-    const { data: result } = await instance.delete(`/${id}`);
-    return result;
+export const removeContacts = async (id) => {
+    const { data } = await instance.delete(`/${id}`);
+    return data;
 }

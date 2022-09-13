@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import shortid from "shortid";
-import { fetchContacts } from "./contacts-operations";
-
+// import shortid from "shortid";
+import { fetchContacts, addContact, removeContact } from "./contacts-operations";
 
 
 const initialState = {
@@ -25,25 +24,34 @@ const contactsSlice = createSlice({
         [fetchContacts.rejected]: (store, { payload }) => {
             store.loading = false;
             store.error = payload;
-        }
-    },
-    reducers: {
-        addContact: {
-            reducer: (store, { payload }) => {
-            store.push(payload);
-            },
-            prepare: (data) => {
-                return {
-                    payload: {
-                        ...data,
-                        id: shortid()
-                    }
-              }
-          }  
         },
-        removeContact: (store, { payload }) => store.filter(item => item.id !== payload)
+        [addContact.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [addContact.fulfilled]: (store, { payload }) => {
+      store.loading = true;
+      store.items = [...store.items, payload].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+    },
+    [addContact.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    [removeContact.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [removeContact.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.items = store.items.filter(item => item.id !== payload);
+    },
+    [removeContact.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
     }
 });
 
-export const { addContact, removeContact } = contactsSlice.actions;
 export default contactsSlice.reducer;
