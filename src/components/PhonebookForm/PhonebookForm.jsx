@@ -1,10 +1,13 @@
 import {useState} from "react";
 import shortid from "shortid";
+import { useSelector, useDispatch } from "react-redux";
 import { PhonebookFormLabel, PhonebookFormInput, ButtonForm } from "./PhonebookForm.style";
+import { getVisibleFilter } from "Redux/selectors";
+import { addContact } from "Redux/contacts-operations";
 
 
 
-export default function Phonebook({ onSubmit }) {
+export default function Phonebook() {
     const initialState = {
         name: '',
         number: '',
@@ -12,10 +15,24 @@ export default function Phonebook({ onSubmit }) {
 
     const [state, setState] = useState({ ...initialState });
     const { name, number } = state;
-   
 
     const nameInputId = shortid.generate();
     const numberInputId = shortid.generate();
+
+    const contacts = useSelector(getVisibleFilter);
+
+    const dispatch = useDispatch();  
+
+     const onAddContacts = (payload) => {
+    const existingContact = contacts.find(
+      el => el.name.toLocaleLowerCase() === payload.name.toLocaleLowerCase()
+    );
+    if (existingContact) {
+      alert(`${payload.name} is already in your contacts`);
+      return;
+    }
+    dispatch(addContact(payload));
+  };
     
     const handleChange = ({target}) => {
         const { name, value } = target;
@@ -27,12 +44,14 @@ export default function Phonebook({ onSubmit }) {
 
     const handleSubmit = event => {
         event.preventDefault();
-        onSubmit({ ...state });
+        onAddContacts({ ...state });
         setState({ ...initialState });
     };
     
     
-        return (
+    return (
+        <div>
+            <h2>Phonebook</h2>
             <form onSubmit={handleSubmit}>
                 <PhonebookFormLabel htmlFor={nameInputId}>
                     Contact
@@ -62,6 +81,7 @@ export default function Phonebook({ onSubmit }) {
                 </PhonebookFormLabel>
                 <ButtonForm type="submit">Add contact</ButtonForm>
             </form>
+            </div>
         );
 }
 

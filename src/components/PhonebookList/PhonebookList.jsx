@@ -1,8 +1,23 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from "react-redux";
+import { getVisibleFilter } from "Redux/selectors";
+import { removeContact } from "Redux/contacts-operations";
+import { useEffect } from "react";
+import { fetchContacts } from "Redux/contacts-operations";
 import { Button, InfoContact, ContactList } from "./PhonebookList.styled";
 
-const PhonebookList = ({ contacts, DeleteContact }) => {
+const PhonebookList = () => {
+        const contacts = useSelector(getVisibleFilter);
+    const dispatch = useDispatch();
+    
+     useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+    const onRemoveContacts = (payload) => {
+    dispatch(removeContact(payload));
+    }
+    
     return (
         <div>
         <ContactList>
@@ -10,7 +25,7 @@ const PhonebookList = ({ contacts, DeleteContact }) => {
                     <li key={id}>
             <InfoContact>{name}: </InfoContact>
             <InfoContact>{number}</InfoContact>
-            <Button type="button" onClick={() => DeleteContact(id)}>Delete</Button>
+            <Button type="button" onClick={() => onRemoveContacts(id)}>Delete</Button>
         </li>))}
             </ContactList>
         </div>
@@ -19,7 +34,3 @@ const PhonebookList = ({ contacts, DeleteContact }) => {
 
 export default PhonebookList;
 
-PhonebookList.propTypes = {
-    contacts: PropTypes.array.isRequired,
-    DeleteContact: PropTypes.func.isRequired,
-}
