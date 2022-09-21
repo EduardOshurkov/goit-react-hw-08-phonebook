@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { signup } from "Redux/auth/auth-operations";
 import { getAuthError } from "Redux/auth/auth-selectors";
-import { isAuth } from "Redux/auth/auth-selectors";
+import useAuth from "hooks/useAuth";
 
 
 const RegisterPage = () => {
     const dispatch = useDispatch();
     const { status } = useSelector(getAuthError);
-    const isLogin = useSelector(isAuth);
-    console.log(isLogin);
+    const isLogin = useAuth();
 
     const onRegister = (data) => {
         dispatch(signup(data));
