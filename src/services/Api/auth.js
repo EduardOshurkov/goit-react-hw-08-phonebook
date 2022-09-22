@@ -7,7 +7,7 @@ const instance = axios.create({
 
 const setToken = (token) => {
     if (token) {
-    instance.defaults.headers.common.authorization = `Bearer ${token}`;
+    return instance.defaults.headers.common.authorization = `Bearer ${token}`;
     }
     instance.defaults.headers.common.authorization = "";
 }
@@ -26,7 +26,7 @@ export const login = async (data) => {
 
 
 export const logout = async () => {
-    const data = await instance.post("/users/logout");
+    const {data} = await instance.post("/users/logout");
     setToken();
     return data;
 };

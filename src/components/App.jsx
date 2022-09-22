@@ -11,10 +11,10 @@ export function App() {
     const dispatch = useDispatch()
     useEffect(() => {
 dispatch(current())
-    }, [])
+    }, [dispatch])
     
     return (
-      <Container>
+        <Container>
         <Navbar/>
         <UserRoutes />
         </Container>

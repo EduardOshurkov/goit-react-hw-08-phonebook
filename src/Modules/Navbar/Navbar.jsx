@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import UserMenu from "Modules/UserMenu/UserMenu";
 import useAuth from "hooks/useAuth";
 import NavbarAuth from "./NavbarAuth";
 import NavbarMenu from "Modules/NavbarMenu/NavbarMenu";
+import style from "./Navbar.module.css"
 
 
 const Navbar = () => {
@@ -10,11 +11,10 @@ const Navbar = () => {
     
 
     return (
-        <div>
-            <Link to="/">LOGO</Link>
-            {isLogin && <NavbarAuth />}
-            {isLogin ? <UserMenu /> : <NavbarMenu />}
-            {/* <UserMenu/> */}
+        <div className={style.headerMenu}>
+            <NavLink to="/" className={style.home}>Home</NavLink>
+            {isLogin && <NavbarMenu />}
+            {isLogin ? <UserMenu /> : <NavbarAuth />}
         </div>
     )
 };

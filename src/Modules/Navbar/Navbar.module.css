@@ -1,0 +1,36 @@
+.headerMenu {
+    justify-content: space-between;
+    display: flex;
+    color: red;
+}
+
+.home {
+font-family: 'Quicksand';
+margin-right: 20px;
+font-style: normal;
+font-weight: 700;
+font-size: 48px;
+line-height: 60px;
+color: #FFFFFF;
+}
+
+
+.registerTitle{
+font-family: 'Quicksand';
+margin-right: 20px;
+font-style: normal;
+font-weight: 700;
+font-size: 48px;
+line-height: 60px;
+color: #FFFFFF;
+}
+
+.loginTitle{
+    font-family: 'Quicksand';
+font-style: normal;
+font-weight: 700;
+font-size: 48px;
+line-height: 60px;
+color: #FFFFFF;
+}
+

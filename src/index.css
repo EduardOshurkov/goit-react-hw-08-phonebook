@@ -1,10 +1,12 @@
 @import-normalize; /* bring in normalize.css styles */
 
 body {
+  background: #FFCB78;
   margin: 0;
+  padding: 40px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif, 'Quicksand';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -12,4 +14,47 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+img {
+height: 100%;
+max-width: 100%;
+}
+
+a {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+text-decoration: none;
+color: inherit;
+}
+
+/* h2{
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+color: #FDFEFF;
+} */
+
+h3{
+  font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    color: #FDFEFF;
+}
+
+p{
+  font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: #FDFEFF;
+}
+
+li{
+  list-style: none;
 }
