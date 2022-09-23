@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import shortid from "shortid";
 import { useSelector, useDispatch } from "react-redux";
 import { PhonebookFormLabel, PhonebookFormInput, ButtonForm } from "./PhonebookForm.style";
@@ -21,20 +21,20 @@ export default function Phonebook() {
 
     const contacts = useSelector(getVisibleFilter);
 
-    const dispatch = useDispatch();  
+    const dispatch = useDispatch();
 
-     const onAddContacts = (payload) => {
-    const existingContact = contacts.find(
-      el => el.name.toLocaleLowerCase() === payload.name.toLocaleLowerCase()
-    );
-    if (existingContact) {
-      alert(`${payload.name} is already in your contacts`);
-      return;
-    }
-    dispatch(addContact(payload));
-  };
-    
-    const handleChange = ({target}) => {
+    const onAddContacts = (payload) => {
+        const existingContact = contacts.find(
+            el => el.name.toLocaleLowerCase() === payload.name.toLocaleLowerCase()
+        );
+        if (existingContact) {
+            alert(`${payload.name} is already in your contacts`);
+            return;
+        }
+        dispatch(addContact(payload));
+    };
+
+    const handleChange = ({ target }) => {
         const { name, value } = target;
         setState(prevState => ({
             ...prevState,
@@ -47,8 +47,8 @@ export default function Phonebook() {
         onAddContacts({ ...state });
         setState({ ...initialState });
     };
-    
-    
+
+
     return (
         <div>
             <h2>Phonebook</h2>
@@ -81,7 +81,7 @@ export default function Phonebook() {
                 </PhonebookFormLabel>
                 <ButtonForm type="submit">Add contact</ButtonForm>
             </form>
-            </div>
-        );
+        </div>
+    );
 }
 

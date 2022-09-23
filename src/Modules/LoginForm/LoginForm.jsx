@@ -9,7 +9,6 @@ const LoginForm = ({ onSubmit }) => {
 
     return (
         <div className={styles.loginForm}>
-            
             <form className={styles.form} action="" onSubmit={handleSubmit}>
                 <h2 className={styles.title}>Login</h2>
                 <div className={styles.wrapForm}>

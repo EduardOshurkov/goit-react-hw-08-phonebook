@@ -1,0 +1,31 @@
+.userWrap{
+    display: flex;
+        justify-content: center;
+}
+
+.userName {
+    font-family: 'Quicksand';
+    margin-right: 20px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 60px;
+    color: #FFFFFF;
+}
+
+.logoutBtn {
+    width: 90px;
+    height: 40px;
+    margin: auto;
+    left: 0px;
+    top: 0px;
+    background: #FFFFFF;
+    border-radius: 50px;
+
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+}

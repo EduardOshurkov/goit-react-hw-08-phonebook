@@ -1,0 +1,27 @@
+
+
+.contactTitle {
+font-family: 'Quicksand';
+margin-right: 20px;
+font-style: normal;
+font-weight: 700;
+font-size: 48px;
+line-height: 60px;
+color: #FFFFFF;
+}
+
+.contactTitle:hover {
+    color: #fd8c03;
+    border-bottom: 4px double #fd8c03;
+}
+
+.contactTitle.active {
+    color: white;
+    border-bottom: 4px double white;
+}
+
+.contactTitle.active:hover {
+    color: #fd8c03;
+    border-bottom: 4px double #fd8c03;
+}
+
